@@ -19,6 +19,7 @@
                  [metosin/muuntaja "0.6.7"]
                  [metosin/reitit "0.5.10"]
                  [metosin/ring-http-response "0.9.1"]
+                 [metosin/ring-swagger-ui "2.2.10"]
                  [mount "0.1.16"]
                  [nrepl "0.8.3"]
                  [org.clojure/clojure "1.10.1"]
@@ -30,36 +31,28 @@
                  [org.webjars/webjars-locator "0.40"]
                  [cljs-ajax "0.8.1"]
                  [reagent "1.0.0"]
+                 [re-frame "1.1.2"]
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.8.2"]
                  [ring/ring-defaults "0.3.2"]
-                 [selmer "1.12.31"]]
+                 [selmer "1.12.31"]
+
+                 ;; Add these dependencies
+                 [com.google.javascript/closure-compiler-unshaded "v20200830"
+                  :scope "provided"]
+                 [org.clojure/google-closure-library "0.0-20191016-6ae1f72f"
+                  :scope "provided"]
+                 [thheller/shadow-cljs "2.11.14" :scope "provided"]]
 
   :min-lein-version "2.0.0"
 
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "src/cljs" "src/cljc"]
   :test-paths ["test/clj"]
   :resource-paths ["resources" "target/cljsbuild"]
   :target-path "target/%s/"
   :main ^:skip-aot guestbook.core
 
-  :plugins [[lein-cljsbuild "1.1.8"]]
-
-  :cljsbuild
-  {:builds
-   {:app {:source-paths ["src/cljs"]
-          :compiler {:output-to "target/cljsbuild/public/js/app.js"
-                     :output-dir "target/cljsbuild/public/js/out"
-                     :main "guestbook.core"
-                     :asset-path "/js/out"
-                     :optimizations :none
-                     :source-map true
-                     :pretty-print true}}}}
-  :clean-targets
-  ^{:protect false}
-  [:target-path
-   [:cljsbuild :builds :app :compiler :output-dir]
-   [:cljsbuild :builds :app :compiler :output-to]]
+  :plugins []
 
   :profiles
   {:uberjar {:omit-source true
@@ -75,7 +68,8 @@
                   :dependencies [[pjstadig/humane-test-output "0.10.0"]
                                  [prone "2020-01-17"]
                                  [ring/ring-devel "1.8.2"]
-                                 [ring/ring-mock "0.4.0"]]
+                                 [ring/ring-mock "0.4.0"]
+                                 [binaryage/devtools "1.0.2"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
                                  [jonase/eastwood "0.3.5"]]
 
