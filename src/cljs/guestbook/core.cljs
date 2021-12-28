@@ -53,7 +53,8 @@
        :params @fields
        :handler (fn [_]
                   (rf/dispatch
-                   [:message/add (assoc @fields :timestamp (js/Date.))])
+                   [:message/add (-> @fields
+                                     (assoc :timestamp (js/Date.)))])
                   (reset! fields nil)
                   (reset! errors nil))
        :error-handler (fn [e]
@@ -117,7 +118,6 @@
           [:div.columns>div.column
            [message-form]]])])))
 
-
 (defn ^:dev/after-load mount-components []
   (rf/clear-subscription-cache!)
   (.log js/console "Mounting Components...")
@@ -130,7 +130,7 @@
   (rf/dispatch [:app/initialize])
   (get-messages)
   (mount-components))
-
+(.log js/console "guestbook.core evaluated!")
 
 
 (dom/render
