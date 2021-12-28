@@ -70,3 +70,4 @@ package-lock.json
 resources/brepl_client.js
 .clj-kondo/
 .lsp/
+.shadow-cljs/
